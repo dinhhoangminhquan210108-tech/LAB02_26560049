@@ -1,0 +1,497 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Creative portfolio showcasing modern web design projects.">
+    <title>Creative Portfolio</title>
+
+    <style>
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --bg-color: #0f1020;
+            --card-color: #1b1c32;
+            --primary: #8b5cf6;
+            --secondary: #38bdf8;
+            --text-color: #ffffff;
+            --muted: #a1a1b5;
+            --border-color: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== STICKY NAVBAR ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 8%;
+            background: rgba(15, 16, 32, 0.75);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            transition: 0.3s;
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+            background: rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 65px);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #8b5cf6, #38bdf8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            padding: 13px 28px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 30px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        /* ===== PORTFOLIO SECTION ===== */
+        .portfolio {
+            padding: 60px 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: var(--muted);
+        }
+
+        /* ===== CSS GRID ===== */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        /* ===== PROJECT CARD ===== */
+        .project-card {
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(139, 92, 246, 0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.08);
+        }
+
+        .image-wrapper {
+            overflow: hidden;
+        }
+
+        .project-content {
+            padding: 22px;
+        }
+
+        .project-content h3 {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+
+        .project-link {
+            display: inline-block;
+            color: var(--secondary);
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            text-align: center;
+            padding: 70px 20px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .contact h2 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--muted);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* ===== TABLET: 2 COLUMNS ===== */
+        @media (min-width: 640px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* ===== DESKTOP: 3 COLUMNS ===== */
+        @media (min-width: 1024px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* ===== MOBILE NAVIGATION ===== */
+        @media (max-width: 767px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 0 20px;
+                background: rgba(15, 16, 32, 0.95);
+                backdrop-filter: blur(15px);
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+            }
+
+            .nav-links.active {
+                max-height: 300px;
+                opacity: 1;
+                padding: 20px;
+            }
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links a {
+                display: block;
+            }
+
+            .hero {
+                min-height: 55vh;
+            }
+        }
+
+        /* ===== REDUCED MOTION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="#home" class="logo">MyPortfolio.</a>
+
+        <button class="menu-btn"
+                id="menuBtn"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="navLinks">
+            ☰
+        </button>
+
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#portfolio">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <main>
+        <section class="hero" id="home">
+            <h1>Creative <span>Portfolio</span></h1>
+
+            <p>
+                A showcase of clean layouts, modern interfaces,
+                and creative web development projects designed
+                with passion and precision.
+            </p>
+
+            <a href="#portfolio" class="hero-btn">
+                Explore My Work
+            </a>
+        </section>
+
+        <!-- PORTFOLIO GRID -->
+        <section class="portfolio" id="portfolio">
+
+            <div class="section-header">
+                <h2>My Projects</h2>
+                <p>Explore some of my recent creative projects.</p>
+            </div>
+
+            <div class="grid-container">
+
+                <!-- PROJECT 1 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project1/600/400"
+                             alt="Creative interface project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Creative Interface</h3>
+                        <p>Advanced Figma-to-code project focusing on responsive CSS variables.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+                <!-- PROJECT 2 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project2/600/400"
+                             alt="Dynamic dashboard project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Dynamic Dashboard</h3>
+                        <p>Beautiful dashboard featuring custom responsive borders and grids.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+                <!-- PROJECT 3 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project3/600/400"
+                             alt="E-commerce website project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>E-commerce Website</h3>
+                        <p>A modern online shopping experience with a clean user interface.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+                <!-- PROJECT 4 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project4/600/400"
+                             alt="Mobile application project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Mobile Application</h3>
+                        <p>A responsive mobile application interface with intuitive navigation.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+                <!-- PROJECT 5 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project5/600/400"
+                             alt="Landing page project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Landing Page</h3>
+                        <p>A stylish landing page designed to improve user engagement.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+                <!-- PROJECT 6 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://picsum.photos/seed/project6/600/400"
+                             alt="Creative branding project"
+                             class="project-image">
+                    </div>
+                    <div class="project-content">
+                        <h3>Creative Branding</h3>
+                        <p>A creative visual identity with consistent colors and typography.</p>
+                        <a href="#" class="project-link">View Project →</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section class="contact" id="contact">
+            <h2>Let's Work Together</h2>
+            <p>Have a project in mind? Feel free to contact me.</p>
+            <a href="mailto:your-email@example.com" class="hero-btn">
+                Contact Me
+            </a>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 MyPortfolio. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const menuBtn = document.getElementById("menuBtn");
+        const navLinks = document.getElementById("navLinks");
+
+        // Toggle mobile navigation
+        menuBtn.addEventListener("click", function () {
+            const isOpen = navLinks.classList.toggle("active");
+
+            menuBtn.setAttribute("aria-expanded", isOpen);
+            menuBtn.setAttribute(
+                "aria-label",
+                isOpen ? "Close navigation menu" : "Open navigation menu"
+            );
+            menuBtn.textContent = isOpen ? "✕" : "☰";
+        });
+
+        // Close menu after clicking a navigation link
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", function () {
+                navLinks.classList.remove("active");
+                menuBtn.setAttribute("aria-expanded", "false");
+                menuBtn.setAttribute("aria-label", "Open navigation menu");
+                menuBtn.textContent = "☰";
+            });
+        });
+    </script>
+
+</body>
+</html>
